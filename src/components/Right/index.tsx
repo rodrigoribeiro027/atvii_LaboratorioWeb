@@ -1,32 +1,17 @@
-import { useEffect, useState } from 'react'
-import api from '../../services/api'
 import { Conteudo, TeamContainer, Titulo } from '../../styles/theme'
+import { useContexto } from '../../hooks'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck, faSquareCheck } from '@fortawesome/free-solid-svg-icons'
 
 export function Right() {
-    const [teams, setTeams] = useState([])
-
-    useEffect(() => {
-        api.get(`/team`).then((res: any) => {
-            setTeams(res.data.sort((a: any, b: any) => {
-                const valueA = a.name.toLowerCase();
-                const valueB = b.name.toLowerCase();
-                return valueA.localeCompare(valueB);
-            }
-            ))
-        })
-    })
-
+    const {teams, team,setTeam,theme} = useContexto()
+    console.log(team)
     return (
-        <div>
+        <TeamContainer>
             <Titulo>Times</Titulo>
-
-            <TeamContainer>
-                {teams.map((team: any) => (
-                    <div key={team.id}>
-                        <Conteudo>{team.name}</Conteudo>
-                    </div>
+            {teams.map((t: any) => ( 
+                        <Conteudo key={t.id}  onClick={()=> setTeam(t) }> {t.name} {t.id === team?.id ? ( <FontAwesomeIcon icon={theme.name === 'light' ? faCheck : faSquareCheck}/>):(<> </>)}</Conteudo>
                 ))}
             </TeamContainer>
-        </div>
     )
 }

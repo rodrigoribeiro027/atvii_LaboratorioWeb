@@ -9,7 +9,7 @@ const dark = {
     imgbackground: "#F0F8FF"
 };
 
-const light = {
+ const light = {
     name: "light",
     background: "#B0C4DE",
     main: "#F0F8FF",
@@ -34,7 +34,6 @@ export const BodySld = styled.div`
     align-items: center;
 `;
 export const BarSld = styled.div`
-    margin-bottom: 20px;
     background-color: #ffffff;
     width: 100%;
     display: flex;
@@ -113,12 +112,11 @@ export const MainContainer = styled.div`
     background-color: ${props => props.theme === 'light' ? light.background : dark.background};
     color: ${props => props.theme === 'light' ? light.text : dark.text};
     padding: 40px;
-    min-width: 90%;
+    min-width: 96%;
     @media (max-width: 800px) {
         min-width: 80%;
     }
 `
-
 export const SubContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;

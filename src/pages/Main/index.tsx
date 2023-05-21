@@ -34,7 +34,6 @@ function Main() {
         <SubContainer  theme={theme}>
           <Left />
           <Right />
-            <div></div>
         </SubContainer>
         <CgDarkMode onClick={ThemeChange}  style={darkModeButtonStyle}/>
       </MainContainer>
