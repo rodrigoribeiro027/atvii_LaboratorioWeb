@@ -1,48 +1,50 @@
-import styled from "styled-components";
-import LeftSld from "../../components/Left";
-import RightSld, { Right } from "../../components/Right";
+import { useState } from "react";
+
+import Left from "../../components/Left";
+import { Right } from "../../components/Right";
+import logo from '../../assets/logo.png'
+import { BodySld ,BarSld ,MainContainer, SubContainer ,Logo} from '../../styles/theme'
+import { CgDarkMode } from 'react-icons/cg'
 
 function Main() {
+  const [theme, setTheme] = useState('light');
+
+  const ThemeChange = () => {
+        setTheme(prevTheme => prevTheme === 'light' ? 'dark' : 'light');
+    }
+    const darkModeButtonStyle: React.CSSProperties = {
+    width:'2.5%',
+    height:'5%',
+    position: 'fixed',
+    top: '90%',
+    right: 0,  // Alteração feita para posicionar à direita
+    transform: 'translateX(-90%)',
+    zIndex: 9999,
+    backgroundColor: '#333',
+    color: '#fff',
+    padding: '10px',
+    borderRadius:30
+    };
   return (
     <BodySld>
-      <BarSld>Titulo</BarSld>
-      <WrapperSld>
-        <LeftSld>direita</LeftSld>
-        <Right/>
-      </WrapperSld>
-
+      <BarSld>
+        <Logo src={logo} alt="logo" />
+      </BarSld>
+      <MainContainer theme={theme}>
+        <SubContainer  theme={theme}>
+          <Left />
+          <Right />
+            <div></div>
+        </SubContainer>
+        <CgDarkMode onClick={ThemeChange}  style={darkModeButtonStyle}/>
+      </MainContainer>
     </BodySld>
   );
 }
 
 export default Main;
 
-const BodySld = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background-color:${props=>props.theme.background};
-  box-sizing: border-box;
-  align-items: center;
-  @media (max-width: 800px) {
-    width: 100%;
-  }
-`;
-const BarSld = styled.div`
-background-color: #fffb00;
-width: 100%;
-`;
 
-
-const WrapperSld = styled.div`
-display: flex;
-flex-direction: row;
-@media (max-width: 800px) {
-    width: 100%;
-    flex-direction: column;
-  }
-`;
 
 
 

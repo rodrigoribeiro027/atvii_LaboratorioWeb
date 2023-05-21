@@ -1,22 +1,32 @@
-import styled from "styled-components";
-import { useContexto } from "../../hooks";
+import { useEffect, useState } from 'react'
+import api from '../../services/api'
+import { Conteudo, TeamContainer, Titulo } from '../../styles/theme'
 
+export function Right() {
+    const [teams, setTeams] = useState([])
 
-export function Right(){
-  const {teams} = useContexto();
-  console.log(teams)
-    return(
-        <WrapperSld>oi</WrapperSld>
-    );
+    useEffect(() => {
+        api.get(`/team`).then((res: any) => {
+            setTeams(res.data.sort((a: any, b: any) => {
+                const valueA = a.name.toLowerCase();
+                const valueB = b.name.toLowerCase();
+                return valueA.localeCompare(valueB);
+            }
+            ))
+        })
+    })
+
+    return (
+        <div>
+            <Titulo>Times</Titulo>
+
+            <TeamContainer>
+                {teams.map((team: any) => (
+                    <div key={team.id}>
+                        <Conteudo>{team.name}</Conteudo>
+                    </div>
+                ))}
+            </TeamContainer>
+        </div>
+    )
 }
-
-export const WrapperSld = styled.div`
-width: 300px;
-background-color: #a5a5a5;
-  @media (max-width: 800px) {
-    width: 100%;
-    flex-direction: column;
-  }
-`;
-
-export default WrapperSld;
